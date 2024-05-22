@@ -6,6 +6,9 @@ import org.cr.model.Booking;
 import java.util.List;
 
 public class BookingBsnImpl implements BookingBsn {
+
+    final String path = "D:/Temp/Freelance/car-rent-system/booking.txt";
+
     @Override
     public void add(Booking booking) {
 

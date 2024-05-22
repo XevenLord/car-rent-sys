@@ -14,6 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 public class CustomerStore implements BaseStore {
 
+    final String path = "D:/Temp/Freelance/car-rent-system/customer.txt";
+
     private HashMap<String, Customer> map;
 
     @Override

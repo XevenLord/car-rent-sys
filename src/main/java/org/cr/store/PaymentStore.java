@@ -13,6 +13,8 @@ import java.util.List;
 @NoArgsConstructor
 public class PaymentStore implements BaseStore {
 
+    final String path = "D:/Temp/Freelance/car-rent-system/payment.txt";
+
     private HashMap<String, Payment> map;
 
     @Override

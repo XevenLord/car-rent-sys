@@ -6,6 +6,9 @@ import org.cr.model.Payment;
 import java.util.List;
 
 public class PaymentBsnImpl implements PaymentBsn {
+
+    final String path = "D:/Temp/Freelance/car-rent-system/payment.txt";
+
     @Override
     public void create(Payment payment) {
 

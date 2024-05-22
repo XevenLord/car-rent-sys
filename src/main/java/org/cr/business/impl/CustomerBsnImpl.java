@@ -6,6 +6,9 @@ import org.cr.model.user.Customer;
 import java.util.List;
 
 public class CustomerBsnImpl implements CustomerBsn {
+
+    final String path = "D:/Temp/Freelance/car-rent-system/customer.txt";
+
     @Override
     public void create(Customer customer) {
 

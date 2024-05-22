@@ -13,6 +13,8 @@ import java.util.List;
 @AllArgsConstructor
 public class BookingStore implements BaseStore {
 
+    final String path = "D:/Temp/Freelance/car-rent-system/booking.txt";
+
     private HashMap<String, Booking> map;
 
     @Override
