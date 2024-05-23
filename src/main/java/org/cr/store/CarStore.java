@@ -14,31 +14,12 @@ import java.util.List;
 @NoArgsConstructor
 public class CarStore implements BaseStore {
 
+    final String path = "C:/Users/Admin/Projects/car-rent-sys/car.txt";
+
     private HashMap<String, Car> map;
 
     @Override
-    public List getAll() {
+    public Object get() {
         return null;
     }
-
-    @Override
-    public Object get(String id) {
-        return null;
-    }
-
-    @Override
-    public void add(Object entt) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public void update(Object entt) {
-
-    }
-
 }

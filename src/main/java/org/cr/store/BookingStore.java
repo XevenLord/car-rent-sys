@@ -18,28 +18,7 @@ public class BookingStore implements BaseStore {
     private HashMap<String, Booking> map;
 
     @Override
-    public List getAll() {
-        return null;
+    public Object get() {
+        return this;
     }
-
-    @Override
-    public Object get(String id) {
-        return null;
-    }
-
-    @Override
-    public void add(Object entt) {
-
-    }
-
-    @Override
-    public void delete(String id) {
-
-    }
-
-    @Override
-    public void update(Object entt) {
-
-    }
-
 }

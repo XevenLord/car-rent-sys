@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface BaseStore<T> {
 
-    T get(String id);
+    T get();
 
 }
