@@ -8,13 +8,14 @@ import org.cr.model.Car;
 
 import java.io.*;
 import java.util.HashMap;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class CarStore implements BaseStore {
 
-    final String path = "C:/Users/Admin/Projects/car-rent-sys/car.txt";
+    final String path = "D:/Temp/Freelance/car-rent-system/car.txt";
 
     private HashMap<String, Car> map;
 
@@ -48,6 +49,10 @@ public class CarStore implements BaseStore {
         }
         map.put(car.getId(), car);
         saveToFile();
+    }
+
+    public void addCars(List<Car> cars) {
+        cars.forEach(this::addCar);
     }
 
     public Car getCar(String id) {
