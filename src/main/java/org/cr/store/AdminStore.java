@@ -42,8 +42,13 @@ public class AdminStore implements BaseStore {
     }
 
     // Additional methods to interact with the map as needed
-    public void addAdmin(String id, Admin admin) {
-        map.put(id, admin);
+    public void addAdmin(Admin admin) {
+        if (getAdmin(admin.getId()) != null) {
+            System.out.println("WARNING: Admin exists");
+            return;
+        }
+        map.put(admin.getId(), admin);
+        saveToFile();
     }
 
     public Admin getAdmin(String id) {
@@ -52,8 +57,7 @@ public class AdminStore implements BaseStore {
 
     public void removeAdmin(String id) {
         map.remove(id);
+        saveToFile();
     }
-
-    // Other methods for interacting with the map...
 
 }
