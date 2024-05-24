@@ -59,4 +59,8 @@ public class CustomerStore implements BaseStore {
         map.remove(id);
         saveToFile();
     }
+
+    public void updCustomer(Customer customer) {
+        map.put(customer.getId(), customer);
+    }
 }

@@ -8,6 +8,7 @@ import org.cr.model.user.Customer;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 
 @Data
@@ -21,5 +22,9 @@ public class Payment implements Serializable {
     private Customer customer;
 
     private BigDecimal amount;
+
+    private LocalDateTime crtTm;
+
+    private String carPlateNo;
 
 }

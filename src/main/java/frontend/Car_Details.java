@@ -2,6 +2,7 @@ package frontend;
 
 import org.cr.model.Car;
 import org.cr.model.Booking;
+import org.cr.store.BookingStore;
 import org.cr.store.CarStore;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
@@ -156,6 +157,7 @@ public class Car_Details {
         @Override
         public void actionPerformed(ActionEvent e) {
             CarStore carStore = new CarStore().get();
+            BookingStore bookingStore = new BookingStore().get();
 
             switch (e.getActionCommand()) {
 
@@ -229,23 +231,23 @@ public class Car_Details {
                 }
                 break;
                 case "Book": {
-//                    if (!Booking.getUnbookedCars().isEmpty()) {
-//                        Parent_JFrame.getMainFrame().setEnabled(false);
-//                        Booking_BookCar ac = new Booking_BookCar();
-//                        ac.setVisible(true);
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "No UnBooked Cars are available !");
-//                    }
+                    if (!bookingStore.getUnbookedCars().isEmpty()) {
+                        Parent_JFrame.getMainFrame().setEnabled(false);
+                        Booking_BookCar ac = new Booking_BookCar();
+                        ac.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No UnBooked Cars are available !");
+                    }
                 }
                 break;
                 case "Unbook": {
-//                    if (!Booking.getBookedCars().isEmpty()) {
-//                        Parent_JFrame.getMainFrame().setEnabled(false);
-//                        Booking_UnBookCar ac = new Booking_UnBookCar();
-//                        ac.setVisible(true);
-//                    } else {
-//                        JOptionPane.showMessageDialog(null, "No Booked Cars found !");
-//                    }
+                    if (!bookingStore.getBookedCars().isEmpty()) {
+                        Parent_JFrame.getMainFrame().setEnabled(false);
+                        Booking_UnBookCar ac = new Booking_UnBookCar();
+                        ac.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No Booked Cars found !");
+                    }
                 }
                 break;
             }

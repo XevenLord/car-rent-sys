@@ -76,4 +76,8 @@ public class CarStore implements BaseStore {
                 .collect(Collectors.toList());
     }
 
+    public void updCar(Car car) {
+        map.put(car.getPlateNo(), car);
+    }
+
 }

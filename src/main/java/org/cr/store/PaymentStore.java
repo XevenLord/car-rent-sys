@@ -3,10 +3,17 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.model.Booking;
+import org.cr.model.Car;
 import org.cr.model.Payment;
+import org.cr.model.user.Customer;
 
 import java.io.*;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
+import java.util.UUID;
 
 @Data
 @AllArgsConstructor
@@ -56,6 +63,37 @@ public class PaymentStore implements BaseStore {
     public void removePayment(String id) {
         map.remove(id);
         saveToFile();
+    }
+
+    public int calcBill(Booking booking) {
+        CarStore carStore = new CarStore().get();
+        CustomerStore customerStore = new CustomerStore().get();
+
+        int hours = (int) ChronoUnit.HOURS.between(booking.getStTm(), booking.getEndTm());
+
+        Car car = carStore.getCar(booking.getPlateNo());
+        Customer customer = customerStore.getCustomer(booking.getCustomerId());
+
+        if (car == null) {
+            return 0;
+        }
+
+        int amount = (int) (car.getRentPerHour() * hours);
+
+        Payment payment = new Payment().builder()
+                .id(UUID.randomUUID().toString())
+                .amount(new BigDecimal(amount))
+                .customer(customer)
+                .crtTm(LocalDateTime.now())
+                .carPlateNo(car.getPlateNo())
+                .build();
+
+        addPayment(payment);
+        if (hours != 0) {
+            return (int) amount;
+        } else {
+            return (int) (car.getRentPerHour() * 1);
+        }
     }
 
 }

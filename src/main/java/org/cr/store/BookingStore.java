@@ -3,10 +3,13 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.enums.CarRentSts;
 import org.cr.model.Booking;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -49,6 +52,10 @@ public class BookingStore implements BaseStore {
         saveToFile();
     }
 
+    public void updBooking(Booking booking) {
+        map.put(booking.getId(), booking);
+    }
+
     public Booking getBooking(String id) {
         return map.get(id);
     }
@@ -56,6 +63,34 @@ public class BookingStore implements BaseStore {
     public void removeBooking(String id) {
         map.remove(id);
         saveToFile();
+    }
+
+    public ArrayList<Booking> getAll() {
+        return new ArrayList<>(map.values());
+    }
+
+    public ArrayList<Booking> getUnbookedCars() {
+        return (ArrayList<Booking>) map.values().stream()
+                .filter(booking -> CarRentSts.AVAILABLE.toString().equals(booking.isStatus()))
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Booking> getBookedCars() {
+        return (ArrayList<Booking>) map.values().stream()
+                .filter(booking -> CarRentSts.NON_AVAILABLE.toString().equals(booking.isStatus()))
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Booking> getByCustomerId(String customerId) {
+        return (ArrayList<Booking>) map.values().stream()
+                .filter(booking -> customerId.equals(booking.getCustomerId()))
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Booking> getByPlateNo(String plateNo) {
+        return (ArrayList<Booking>) map.values().stream()
+                .filter(booking -> plateNo.equals(booking.getPlateNo()))
+                .collect(Collectors.toList());
     }
 
 }
