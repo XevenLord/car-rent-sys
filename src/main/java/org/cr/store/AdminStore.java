@@ -60,4 +60,12 @@ public class AdminStore implements BaseStore {
         saveToFile();
     }
 
+    public Admin getByEmail(String email) {
+        // Iterate through the map and find the Admin with the given email
+        return map.values().stream()
+                .filter(admin -> admin.getEmail().equalsIgnoreCase(email))
+                .findFirst()
+                .orElse(null);
+    }
+
 }

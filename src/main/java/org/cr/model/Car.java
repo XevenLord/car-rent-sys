@@ -13,10 +13,18 @@ import java.io.Serializable;
 @Builder
 public class Car implements Serializable {
 
-    private String id;
-
     private String plateNo;
 
+    private String maker;
+
+    private String name;
+
+    private String type;
+
     private String rentSts;
+
+    private int seats;
+
+    private Long rentPerHour;
 
 }

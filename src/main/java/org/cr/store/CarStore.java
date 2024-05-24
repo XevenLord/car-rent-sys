@@ -7,8 +7,10 @@ import lombok.NoArgsConstructor;
 import org.cr.model.Car;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @AllArgsConstructor
@@ -43,11 +45,11 @@ public class CarStore implements BaseStore {
     }
 
     public void addCar(Car car) {
-        if (getCar(car.getId()) != null) {
+        if (getCar(car.getPlateNo()) != null) {
             System.out.println("WARNING: Car exists");
             return;
         }
-        map.put(car.getId(), car);
+        map.put(car.getPlateNo(), car);
         saveToFile();
     }
 
@@ -62,6 +64,16 @@ public class CarStore implements BaseStore {
     public void removeCar(String id) {
         map.remove(id);
         saveToFile();
+    }
+
+    public ArrayList<Car> getAll() {
+        return new ArrayList<>(map.values());
+    }
+
+    public ArrayList<Car> getByName(String name) {
+        return (ArrayList<Car>) map.values().stream()
+                .filter(car -> car.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
     }
 
 }
