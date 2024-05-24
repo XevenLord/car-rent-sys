@@ -110,7 +110,9 @@ public class Login {
                         Password_Field.setText("");
                         Runner.getFrame().dispose();
                         Parent_JFrame frame = new Parent_JFrame();
+                        MainMenu menu = new MainMenu();
                         JFrame mainFrame = Parent_JFrame.getMainFrame();
+                        mainFrame.add(menu.getMainPanel());
                         mainFrame.setVisible(true);
                     } else {
                         JOptionPane.showMessageDialog(null, "Invalid UserName/Password", "Error", JOptionPane.ERROR_MESSAGE);

@@ -16,7 +16,8 @@ public class Parent_JFrame {
 
 
     public Parent_JFrame() {
-        MainFrame = new JFrame("Rent-A-Car Management System");
+        System.out.println("Enter parent jframe");
+        MainFrame = new JFrame("Car Rent System");
         MainFrame.setSize(1366, 730);
         MainFrame.setVisible(true);
 
@@ -84,6 +85,7 @@ public class Parent_JFrame {
         removeCustomer.addActionListener(new Parent_JFrame_ActionListner());
 
         About.addActionListener(new Parent_JFrame_ActionListner());
+        System.out.println("Next process");
     }
 
     public static JFrame getMainFrame() {

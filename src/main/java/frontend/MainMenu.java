@@ -20,6 +20,7 @@ public class MainMenu implements ActionListener {
     }
 
     public MainMenu() {
+        System.out.println("Enterring thisss");
         MainPanel = new JPanel();
 
         MainPanel.setLayout(new AbsoluteLayout());
@@ -37,7 +38,7 @@ public class MainMenu implements ActionListener {
         CarsButton.setFont(new Font("Tahoma", 1, 14));
         BookingButton.setFont(new Font("Tahoma", 1, 14));
 
-        java.net.URL imgURL = getClass().getResource("/WelcomeImage.jpg");
+        java.net.URL imgURL = getClass().getResource("/MainMenuImage.jpeg");
         if (imgURL != null) {
             icon = new ImageIcon(imgURL);
         } else {
@@ -45,6 +46,8 @@ public class MainMenu implements ActionListener {
             System.err.println("Couldn't find file: WelcomeImage.jpg");
             icon = null;
         }
+
+        System.out.println("Pass thruu this dy");
 
         Image_Label.setIcon(icon);
 
@@ -54,9 +57,9 @@ public class MainMenu implements ActionListener {
         BookingButton.setBackground(new Color(240,240,240));
 
         MainPanel.add(LogoutButton, new AbsoluteConstraints(1166, 80, 100, 25));
-        MainPanel.add(CustomerButton, new AbsoluteConstraints(70, 220, 200, 99));
-        MainPanel.add(CarsButton, new AbsoluteConstraints(70, 500, 200, 99));
         MainPanel.add(BookingButton, new AbsoluteConstraints(70, 80, 200, 99));
+        MainPanel.add(CustomerButton, new AbsoluteConstraints(70, 220, 200, 99));
+        MainPanel.add(CarsButton, new AbsoluteConstraints(70, 360, 200, 99));
         MainPanel.add(Image_Label, new AbsoluteConstraints(0, 0, 1370, 710));
 
         BookingButton.addActionListener(this);
