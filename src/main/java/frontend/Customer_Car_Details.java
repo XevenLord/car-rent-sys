@@ -48,7 +48,7 @@ public class Customer_Car_Details {
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
 
-        String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats", "Reg No.", "Rent/hour"};
+        String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats", "Reg No.", "Rent/hour", "Rent Status"};
         tablemodel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -66,9 +66,10 @@ public class Customer_Car_Details {
         ArrayList<Car> Car_objects = carStore.getAll();
         for (int i = 0; i < Car_objects.size(); i++) {
             Car car = Car_objects.get(i);
+            String rentSts = car.getRentSts().equals("1") ? "Available" : "Non-available";
             String[] one_s_Record = {
                     (i + 1) + "", car.getPlateNo(), car.getMaker(), car.getName(),
-                    car.getType(), car.getSeats() + "", car.getPlateNo(), car.getRentPerHour() + ""
+                    car.getType(), car.getSeats() + "", car.getPlateNo(), car.getRentPerHour() + "", rentSts
             };
             tablemodel.addRow(one_s_Record);
         }

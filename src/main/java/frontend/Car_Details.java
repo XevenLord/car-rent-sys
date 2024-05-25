@@ -59,7 +59,7 @@ public class Car_Details {
         jTable1 = new JTable();
 
         String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats",
-                "Reg No.", "Rent/hour"};
+                "Reg No.", "Rent/hour", "Rent Status"};
         tablemodel = new DefaultTableModel(columns, 0) {
 
             @Override
@@ -87,9 +87,10 @@ public class Car_Details {
             int seatingCapacity = Car_objects.get(i).getSeats();
             String regNo = Car_objects.get(i).getPlateNo();
             Long rentPerHour = Car_objects.get(i).getRentPerHour();
+            String rentSts = Car_objects.get(i).getRentSts().equals("1") ? "Available" : "Non-available";
 
             String[] one_s_Record = {((i + 1) + ""), "" + ID, maker, Name, type, seatingCapacity+"",
-                   regNo, rentPerHour + ""};
+                   regNo, rentPerHour + "", rentSts};
             tablemodel.addRow(one_s_Record);
         }
 
@@ -104,6 +105,7 @@ public class Car_Details {
         jTable1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
 
 
         // adjusting size of each column
@@ -115,6 +117,7 @@ public class Car_Details {
         jTable1.getColumnModel().getColumn(5).setMinWidth(150);
         jTable1.getColumnModel().getColumn(6).setMinWidth(90);
         jTable1.getColumnModel().getColumn(7).setMinWidth(90);
+        jTable1.getColumnModel().getColumn(8).setMinWidth(90);
 
 
         jTable1.getTableHeader().setReorderingAllowed(false);

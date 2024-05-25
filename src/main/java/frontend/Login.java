@@ -48,7 +48,7 @@ public class Login {
         Password_Field = new JPasswordField();
 
 
-        MiniPanel.setBackground(Color.BLUE);
+        MiniPanel.setBackground(Color.BLACK);
         MiniPanel.setForeground(Color.WHITE);
         MiniPanel.setLayout(new FlowLayout());
         MiniPanel.setPreferredSize(new Dimension(350, 400));

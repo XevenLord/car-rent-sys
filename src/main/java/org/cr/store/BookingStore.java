@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import org.cr.config.Config;
 import org.cr.enums.CarRentSts;
 import org.cr.model.Booking;
-import org.cr.model.Car;
 
 import java.io.*;
 import java.util.ArrayList;

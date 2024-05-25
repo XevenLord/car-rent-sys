@@ -37,7 +37,7 @@ public class CBooking_Details {
         MainPanel.setMinimumSize(new Dimension(1366, 730));
 
         SearchCustomerID_Button = new JButton("Search by Customer ID");
-        SearchCarRegNo_Button = new JButton("Search by Car RegNo");
+        SearchCarRegNo_Button = new JButton("Search by Car Plate No");
         BackButton = new JButton("Back");
         LogoutButton = new JButton("Logout");
         BookCar_Button = new JButton("Book");
@@ -200,7 +200,7 @@ public class CBooking_Details {
                     CustomerID_TextField.setText("");
                 }
                 break;
-                case "Search by Car RegNo": {
+                case "Search by Car Plate No": {
                     String carRegNo = CarRegNo_TextField.getText().trim();
                     if (!carRegNo.isEmpty()) {
                         Car car = carStore.getCar(carRegNo);
