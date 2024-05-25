@@ -83,28 +83,18 @@ public class Booking_BookCar extends JFrame {
 
                                               String CarID = CarID_TextField.getText().trim();
                                               if (!CarID.isEmpty()) {
-                                                  try {
-                                                      if (Integer.parseInt(CarID) > 0) {
+                                                  CarIDValidity_Label.setText("");
+                                                  car = carStore.getCar(CarID);
+                                                  if (car != null) {
+                                                      if (CarRentSts.AVAILABLE.toString().equals(car.getRentSts())) {
                                                           CarIDValidity_Label.setText("");
-                                                          car = carStore.getCar(CarID);
-                                                          if (car != null) {
-                                                              if (!CarRentSts.NON_AVAILABLE.toString().equals(car.getRentSts())) {
-                                                                  CarIDValidity_Label.setText("");
-                                                              } else {
-                                                                  car = null;
-                                                                  JOptionPane.showMessageDialog(null, "This car is already booked !");
-                                                              }
-                                                          } else {
-                                                              CarID = null;
-                                                              CarIDValidity_Label.setText("                                                            Car ID does not exists !");
-                                                          }
                                                       } else {
-                                                          CarID = null;
-                                                          CarIDValidity_Label.setText("                                                            ID cannot be '0' or negative !");
+                                                          car = null;
+                                                          JOptionPane.showMessageDialog(null, "This car is already booked !");
                                                       }
-                                                  } catch (NumberFormatException ex) {
+                                                  } else {
                                                       CarID = null;
-                                                      CarIDValidity_Label.setText("                                                            Invalid ID !");
+                                                      CarIDValidity_Label.setText("                                                            Car ID does not exists !");
                                                   }
                                               } else {
                                                   CarID = null;
@@ -113,23 +103,13 @@ public class Booking_BookCar extends JFrame {
 
                                               String customerID = CustomerID_TextField.getText().trim();
                                               if (!customerID.isEmpty()) {
-                                                  try {
-                                                      if (Integer.parseInt(customerID) > 0) {
-                                                          CustomerIDValidity_Label.setText("");
-                                                          customer = customerStore.getCustomer(customerID);
-                                                          if (customer != null) {
-                                                              CustomerIDValidity_Label.setText("");
-                                                          } else {
-                                                              customerID = null;
-                                                              JOptionPane.showMessageDialog(null, "Customer ID does not exists !");
-                                                          }
-                                                      } else {
-                                                          customerID = null;
-                                                          CustomerIDValidity_Label.setText("                                                            ID cannot be '0' or negative !");
-                                                      }
-                                                  } catch (NumberFormatException ex) {
+                                                  CustomerIDValidity_Label.setText("");
+                                                  customer = customerStore.getCustomer(customerID);
+                                                  if (customer != null) {
+                                                      CustomerIDValidity_Label.setText("");
+                                                  } else {
                                                       customerID = null;
-                                                      CustomerIDValidity_Label.setText("                                                            Invalid ID !");
+                                                      JOptionPane.showMessageDialog(null, "Customer ID does not exists !");
                                                   }
                                               } else {
                                                   customerID = null;
@@ -143,7 +123,7 @@ public class Booking_BookCar extends JFrame {
                                                                   + customer.toString() + "\n Are you sure you want to continue??",
                                                           "Book Confirmation", JOptionPane.OK_CANCEL_OPTION);
                                                   if (showConfirmDialog == 0) {
-                                                      Booking booking = new Booking(UUID.randomUUID().toString(), true, car.getPlateNo(),
+                                                      Booking booking = new Booking(UUID.randomUUID().toString().substring(0, 6), true, car.getPlateNo(),
                                                               customer.getId(), customer.getName(), LocalDateTime.now(), null);
                                                       bookingStore.addBooking(booking);
                                                       Parent_JFrame.getMainFrame().getContentPane().removeAll();

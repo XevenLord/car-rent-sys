@@ -81,7 +81,7 @@ public class PaymentStore implements BaseStore {
         int amount = (int) (car.getRentPerHour() * hours);
 
         Payment payment = new Payment().builder()
-                .id(UUID.randomUUID().toString())
+                .id(UUID.randomUUID().toString().substring(0, 6))
                 .amount(new BigDecimal(amount))
                 .customer(customer)
                 .crtTm(LocalDateTime.now())

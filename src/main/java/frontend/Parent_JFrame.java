@@ -166,7 +166,7 @@ public class Parent_JFrame {
                 }
                 break;
                 case "About": {
-                    JOptionPane.showMessageDialog(null, "THIS PROGRAM IS WRITTEN AS A SEMESTER PROJECT OF OBJECT ORIENTED PROGRAMMING PROGRAMMIG  BY ABDULLAH SHAHID !");
+                    JOptionPane.showMessageDialog(null, "JAVA PROGRAMMING FOR CAR RENT SYSTEM");
                 }
                 break;
 

@@ -4,10 +4,13 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.model.user.Admin;
 import org.cr.model.user.Customer;
 
 import java.io.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.Collectors;
 
 @Data
 @NoArgsConstructor
@@ -43,7 +46,7 @@ public class CustomerStore implements BaseStore {
 
     // Additional methods to interact with the map as needed
     public void addCustomer(Customer customer) {
-        if (getCustomer(customer.getId()) != null) {
+        if (getCustomer(customer.getId()) != null || getByEmail(customer.getEmail()) != null) {
             System.out.println("WARNING: Customer exists");
             return;
         }
@@ -62,5 +65,29 @@ public class CustomerStore implements BaseStore {
 
     public void updCustomer(Customer customer) {
         map.put(customer.getId(), customer);
+    }
+
+    public Customer getCustomerByIC(String ic) {
+        return map.values().stream()
+                .filter(customer -> ic.equals(customer.getIc()))
+                .findFirst().orElse(null);
+    }
+
+    public ArrayList<Customer> getCustomerByName(String name) {
+        return (ArrayList<Customer>) map.values().stream()
+                .filter(customer -> name.equals(customer.getName()))
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Customer> getAll() {
+        return new ArrayList<>(map.values());
+    }
+
+    public Customer getByEmail(String email) {
+        // Iterate through the map and find the Admin with the given email
+        return map.values().stream()
+                .filter(customer -> customer.getEmail().equalsIgnoreCase(email))
+                .findFirst()
+                .orElse(null);
     }
 }

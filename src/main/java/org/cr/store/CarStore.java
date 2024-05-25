@@ -4,6 +4,8 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.enums.CarRentSts;
+import org.cr.model.Booking;
 import org.cr.model.Car;
 
 import java.io.*;
@@ -78,6 +80,18 @@ public class CarStore implements BaseStore {
 
     public void updCar(Car car) {
         map.put(car.getPlateNo(), car);
+    }
+
+    public ArrayList<Car> getUnbookedCars() {
+        return (ArrayList<Car>) map.values().stream()
+                .filter(car -> CarRentSts.AVAILABLE.toString().equals(car.getRentSts()))
+                .collect(Collectors.toList());
+    }
+
+    public ArrayList<Car> getBookedCars() {
+        return (ArrayList<Car>) map.values().stream()
+                .filter(car -> CarRentSts.NON_AVAILABLE.toString().equals(car.getRentSts()))
+                .collect(Collectors.toList());
     }
 
 }

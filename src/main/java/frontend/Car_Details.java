@@ -58,10 +58,9 @@ public class Car_Details {
 
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
-//ID,  Maker,  Name,  Colour,  Type,  SeatingCapacity,  Model,  Condition,  RegNo, RentPerHour,  IsRented RentDate, carOwner customer
 
-        String[] columns = {"Sr#", "ID", "Maker", "Name", "Colour", "Type", "Seats", "Model", "Condition",
-                "Reg No.", "Rent/hour", "Car Owner"};
+        String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats",
+                "Reg No.", "Rent/hour"};
         tablemodel = new DefaultTableModel(columns, 0) {
 
             @Override
@@ -90,10 +89,8 @@ public class Car_Details {
             String regNo = Car_objects.get(i).getPlateNo();
             Long rentPerHour = Car_objects.get(i).getRentPerHour();
 
-            String customerID = "";
-            String customerName = "";
             String[] one_s_Record = {((i + 1) + ""), "" + ID, maker, Name, type, seatingCapacity+"",
-                   regNo, rentPerHour + "", customerID + ": " + customerName};
+                   regNo, rentPerHour + ""};
             tablemodel.addRow(one_s_Record);
         }
 
@@ -108,10 +105,6 @@ public class Car_Details {
         jTable1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(10).setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(11).setCellRenderer(centerRenderer);
 
 
         // adjusting size of each column
@@ -123,10 +116,6 @@ public class Car_Details {
         jTable1.getColumnModel().getColumn(5).setMinWidth(150);
         jTable1.getColumnModel().getColumn(6).setMinWidth(90);
         jTable1.getColumnModel().getColumn(7).setMinWidth(90);
-        jTable1.getColumnModel().getColumn(8).setMinWidth(160);
-        jTable1.getColumnModel().getColumn(9).setMinWidth(170);
-        jTable1.getColumnModel().getColumn(10).setMinWidth(150);
-        jTable1.getColumnModel().getColumn(11).setMinWidth(150);
 
 
         jTable1.getTableHeader().setReorderingAllowed(false);
@@ -231,7 +220,7 @@ public class Car_Details {
                 }
                 break;
                 case "Book": {
-                    if (!bookingStore.getUnbookedCars().isEmpty()) {
+                    if (!carStore.getUnbookedCars().isEmpty()) {
                         Parent_JFrame.getMainFrame().setEnabled(false);
                         Booking_BookCar ac = new Booking_BookCar();
                         ac.setVisible(true);

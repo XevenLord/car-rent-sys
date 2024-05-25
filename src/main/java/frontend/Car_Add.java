@@ -17,8 +17,8 @@ public class Car_Add extends JFrame {
     JButton Add_Button, Cancel_Button;
     JLabel Maker_Label, Name_Label, Type_Label, SeatingCapacity_Label, RegNo_Label, RentPerHour_Label,
             MakerValidity_Label, NameValidity_Label, RegNoValidity_Label, RentPerHourValidity_Label, OwnerIDValidity_Label;
-    JTextField Maker_TextField, Name_TextField, RegNo_TextField, RentPerHour_TextField, OwnerID_TextField;
-    JComboBox<String> Colour_ComboBox, Type_ComboBox, Model_ComboBox, Condition_ComboBox;
+    JTextField Maker_TextField, Name_TextField, RegNo_TextField, RentPerHour_TextField;
+    JComboBox<String> Type_ComboBox, Model_ComboBox;
     JSpinner SeatingCapacity_Spinner;
 
     public Car_Add() {
@@ -39,6 +39,7 @@ public class Car_Add extends JFrame {
         Cancel_Button = new JButton("Cancel");
 
         Maker_Label = new JLabel("Maker");
+        Name_Label = new JLabel("Name");
         Type_Label = new JLabel("Car type");
         SeatingCapacity_Label = new JLabel("Seating capacity");
         RegNo_Label = new JLabel("Reg no (ABC-0123)");
@@ -65,9 +66,6 @@ public class Car_Add extends JFrame {
             Years[i] = TodaysYear - i + "";
         }
         Model_ComboBox = new JComboBox<>(Years);
-
-        String[] Conditions = {"Excellent", "Good", "Average", "Bad"};
-        Condition_ComboBox = new JComboBox<>(Conditions);
 
         SeatingCapacity_Spinner = new JSpinner();
         SeatingCapacity_Spinner.setModel(new SpinnerNumberModel(4, 1, null, 1));
@@ -134,7 +132,6 @@ public class Car_Add extends JFrame {
                                              String maker = Maker_TextField.getText().trim(),
                                                      name = Name_TextField.getText().trim(),
                                                      regNo = RegNo_TextField.getText().trim(),
-                                                     ownerID = OwnerID_TextField.getText().trim(),
                                                      rentPerHour = RentPerHour_TextField.getText().trim();
 
                                              if (!name.isEmpty()) {
@@ -183,7 +180,7 @@ public class Car_Add extends JFrame {
                                                              //Car(id, Maker, Name, Colour, Type, SeatingCapacity, Model, Condition, RegNo, RentPerHour, carOwner)
                                                              // id is auto
 
-                                                             car = new Car(regNo, maker, name, Type_ComboBox.getSelectedItem() + "", CarRentSts.NON_AVAILABLE.toString(),
+                                                             car = new Car(regNo, maker, name, Type_ComboBox.getSelectedItem() + "", CarRentSts.AVAILABLE.toString(),
                                                                      Integer.parseInt(SeatingCapacity_Spinner.getValue().toString()), Long.parseLong(rentPerHour));
                                                              carStore.addCar(car);
 
