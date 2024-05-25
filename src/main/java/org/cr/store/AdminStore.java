@@ -3,6 +3,7 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.config.Config;
 import org.cr.model.user.Admin;
 
 import java.io.*;
@@ -13,7 +14,7 @@ import java.util.HashMap;
 @NoArgsConstructor
 public class AdminStore implements BaseStore {
 
-    final String path = "D:/Temp/Freelance/car-rent-system/admin.txt";
+    final String path = Config.getProperty("admin.path");
 
     private HashMap<String, Admin> map;
 

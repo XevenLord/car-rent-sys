@@ -1,7 +1,6 @@
 package frontend;
 
 import org.cr.model.Car;
-import org.cr.model.Booking;
 import org.cr.store.BookingStore;
 import org.cr.store.CarStore;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;

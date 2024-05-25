@@ -1,10 +1,14 @@
 package frontend;
 
+import org.cr.model.Car;
+import org.cr.store.CarStore;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 
 public class Parent_JFrame {
 
@@ -96,6 +100,8 @@ public class Parent_JFrame {
 
         @Override
         public void actionPerformed(ActionEvent e) {
+            CarStore carStore = new CarStore().get();
+
             switch (e.getActionCommand()) {
                 case "Exit": {
                     int showConfirmDialog = JOptionPane.showConfirmDialog(null, "You are about to terminate the program.\n"
@@ -124,29 +130,29 @@ public class Parent_JFrame {
                 }
                 break;
                 case "View booked Cars": {
-//                    ArrayList<Car> SearchBookedCars_Array = Booking.getBookedCars();
-//                    String result = "";
-//                    if (!SearchBookedCars_Array.isEmpty()) {
-//                        for (int i = 0; i < SearchBookedCars_Array.size(); i++) {
-//                            result += (i + 1) + " : " + SearchBookedCars_Array.get(i) + "\n";
-//                        }
-//                    } else {
-//                        result = "No Cars are Booked !";
-//                    }
-//                    JOptionPane.showMessageDialog(null, result);
+                    ArrayList<Car> SearchBookedCars_Array = carStore.getBookedCars();
+                    String result = "";
+                    if (!SearchBookedCars_Array.isEmpty()) {
+                        for (int i = 0; i < SearchBookedCars_Array.size(); i++) {
+                            result += (i + 1) + " : " + SearchBookedCars_Array.get(i) + "\n";
+                        }
+                    } else {
+                        result = "No Cars are Booked !";
+                    }
+                    JOptionPane.showMessageDialog(null, result);
                 }
                 break;
                 case "View Unbooked Cars": {
-//                    ArrayList<Car> SearchUnBookedCars_Array = Booking.getUnbookedCars();
-//                    String result = "";
-//                    if (!SearchUnBookedCars_Array.isEmpty()) {
-//                        for (int i = 0; i < SearchUnBookedCars_Array.size(); i++) {
-//                            result += (i + 1) + " : " + SearchUnBookedCars_Array.get(i) + "\n";
-//                        }
-//                    } else {
-//                        result = "No UnBooked Cars are available !";
-//                    }
-//                    JOptionPane.showMessageDialog(null, result);
+                    ArrayList<Car> SearchUnBookedCars_Array = carStore.getUnbookedCars();
+                    String result = "";
+                    if (!SearchUnBookedCars_Array.isEmpty()) {
+                        for (int i = 0; i < SearchUnBookedCars_Array.size(); i++) {
+                            result += (i + 1) + " : " + SearchUnBookedCars_Array.get(i) + "\n";
+                        }
+                    } else {
+                        result = "No UnBooked Cars are available !";
+                    }
+                    JOptionPane.showMessageDialog(null, result);
                 }
                 break;
                 case "Add Customer": {

@@ -47,8 +47,6 @@ public class MainMenu implements ActionListener {
             icon = null;
         }
 
-        System.out.println("Pass thruu this dy");
-
         Image_Label.setIcon(icon);
 
         CustomerButton.setBackground(new Color(240,240,240));

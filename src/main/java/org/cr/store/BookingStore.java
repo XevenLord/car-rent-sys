@@ -3,8 +3,10 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.config.Config;
 import org.cr.enums.CarRentSts;
 import org.cr.model.Booking;
+import org.cr.model.Car;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -16,7 +18,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class BookingStore implements BaseStore {
 
-    final String path = "D:/Temp/Freelance/car-rent-system/booking.txt";
+    final String path = Config.getProperty("booking.path");
 
     private HashMap<String, Booking> map;
 
@@ -54,6 +56,7 @@ public class BookingStore implements BaseStore {
 
     public void updBooking(Booking booking) {
         map.put(booking.getId(), booking);
+        saveToFile();
     }
 
     public Booking getBooking(String id) {

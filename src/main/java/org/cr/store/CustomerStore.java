@@ -4,7 +4,7 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.cr.model.user.Admin;
+import org.cr.config.Config;
 import org.cr.model.user.Customer;
 
 import java.io.*;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class CustomerStore implements BaseStore {
 
-    final String path = "D:/Temp/Freelance/car-rent-system/customer.txt";
+    final String path = Config.getProperty("customer.path");
 
     private HashMap<String, Customer> map;
 

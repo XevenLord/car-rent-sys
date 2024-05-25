@@ -91,6 +91,7 @@ public class Booking_BookCar extends JFrame {
                                                       } else {
                                                           car = null;
                                                           JOptionPane.showMessageDialog(null, "This car is already booked !");
+                                                          return;
                                                       }
                                                   } else {
                                                       CarID = null;
@@ -126,6 +127,10 @@ public class Booking_BookCar extends JFrame {
                                                       Booking booking = new Booking(UUID.randomUUID().toString().substring(0, 6), true, car.getPlateNo(),
                                                               customer.getId(), customer.getName(), LocalDateTime.now(), null);
                                                       bookingStore.addBooking(booking);
+                                                      // change status of rent
+                                                      Car car = carStore.getCar(booking.getPlateNo());
+                                                      car.setRentSts(CarRentSts.NON_AVAILABLE.toString());
+                                                      carStore.updCar(car);
                                                       Parent_JFrame.getMainFrame().getContentPane().removeAll();
                                                       Booking_Details cd = new Booking_Details();
                                                       Parent_JFrame.getMainFrame().add(cd.getMainPanel());

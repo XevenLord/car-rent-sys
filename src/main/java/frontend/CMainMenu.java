@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 public class CMainMenu implements ActionListener {
 
     private static JLabel Image_Label;
-    private static JButton BookingButton, LogoutButton;
+    private static JButton BookingButton, LogoutButton, ViewCarsButton;
     private JPanel MainPanel;
     private final ImageIcon icon;
 
@@ -28,11 +28,13 @@ public class CMainMenu implements ActionListener {
 
         BookingButton = new JButton("Booking Details");
         LogoutButton = new JButton("Logout");
+        ViewCarsButton = new JButton("View Cars");
 
         Image_Label = new JLabel();
 
         LogoutButton.setFont(new Font("Tahoma", 1, 14));
         BookingButton.setFont(new Font("Tahoma", 1, 14));
+        ViewCarsButton.setFont(new Font("Tahoma", 1, 14));
 
         java.net.URL imgURL = getClass().getResource("/MainMenuImage.jpeg");
         if (imgURL != null) {
@@ -47,15 +49,18 @@ public class CMainMenu implements ActionListener {
 
         Image_Label.setIcon(icon);
 
-        BookingButton.setBackground(new Color(240,240,240));
-        LogoutButton.setBackground(new Color(240,240,240));
+        BookingButton.setBackground(new Color(240, 240, 240));
+        LogoutButton.setBackground(new Color(240, 240, 240));
+        ViewCarsButton.setBackground(new Color(240, 240, 240));
 
         MainPanel.add(LogoutButton, new AbsoluteConstraints(1166, 80, 100, 25));
         MainPanel.add(BookingButton, new AbsoluteConstraints(70, 80, 200, 99));
+        MainPanel.add(ViewCarsButton, new AbsoluteConstraints(70, 200, 200, 99));
         MainPanel.add(Image_Label, new AbsoluteConstraints(0, 0, 1370, 710));
 
         BookingButton.addActionListener(this);
         LogoutButton.addActionListener(this);
+        ViewCarsButton.addActionListener(this);
     }
 
     @Override
@@ -76,6 +81,13 @@ public class CMainMenu implements ActionListener {
                 CParent_JFrame.getMainFrame().getContentPane().removeAll();
                 CBooking_Details bd = new CBooking_Details();
                 CParent_JFrame.getMainFrame().add(bd.getMainPanel());
+                CParent_JFrame.getMainFrame().getContentPane().revalidate();
+            }
+            break;
+            case "View Cars": {
+                CParent_JFrame.getMainFrame().getContentPane().removeAll();
+                Customer_Car_Details ccd = new Customer_Car_Details();
+                CParent_JFrame.getMainFrame().add(ccd.getMainPanel());
                 CParent_JFrame.getMainFrame().getContentPane().revalidate();
             }
             break;

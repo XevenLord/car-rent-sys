@@ -74,30 +74,18 @@ public class Booking_UnBookCar extends JFrame {
 
                                                 String carID = CarID_TextField.getText().trim();
                                                 if (!carID.isEmpty()) {
-                                                    try {
-                                                        if (Integer.parseInt(carID) > 0) {
+                                                    CarIDValidity_Label.setText("");
+                                                    car = carStore.getCar(carID);
+                                                    if (car != null) {
+                                                        if (CarRentSts.NON_AVAILABLE.toString().equals(car.getRentSts())) {
                                                             CarIDValidity_Label.setText("");
-                                                            car = carStore.getCar(carID);
-                                                            if (car != null) {
-                                                                if (CarRentSts.NON_AVAILABLE.toString().equals(car.getRentSts())) {
-                                                                    CarIDValidity_Label.setText("");
-                                                                } else {
-                                                                    car = null;
-                                                                    JOptionPane.showMessageDialog(null, "This car is not booked !");
-                                                                }
-                                                            } else {
-                                                                car = null;
-                                                                JOptionPane.showMessageDialog(null, "Car ID does not exists !");
-                                                            }
                                                         } else {
-                                                            carID = null;
-                                                            CarIDValidity_Label.setText("                                                            "
-                                                                    + "ID cannot be '0' or negative !");
+                                                            car = null;
+                                                            JOptionPane.showMessageDialog(null, "This car is not booked !");
                                                         }
-                                                    } catch (NumberFormatException ex) {
-                                                        carID = null;
-                                                        CarIDValidity_Label.setText("                                                            "
-                                                                + "Invalid ID !");
+                                                    } else {
+                                                        car = null;
+                                                        JOptionPane.showMessageDialog(null, "Car ID does not exists !");
                                                     }
                                                 } else {
                                                     carID = null;

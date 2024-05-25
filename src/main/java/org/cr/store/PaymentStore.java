@@ -3,6 +3,7 @@ package org.cr.store;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.cr.config.Config;
 import org.cr.model.Booking;
 import org.cr.model.Car;
 import org.cr.model.Payment;
@@ -20,7 +21,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class PaymentStore implements BaseStore {
 
-    final String path = "D:/Temp/Freelance/car-rent-system/payment.txt";
+    final String path = Config.getProperty("payment.path");
 
     private HashMap<String, Payment> map;
 

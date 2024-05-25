@@ -77,7 +77,7 @@ public class CParent_JFrame {
                 break;
                 case "View Bookings": {
                     CParent_JFrame.getMainFrame().getContentPane().removeAll();
-                    Booking_Details bd = new Booking_Details();
+                    CBooking_Details bd = new CBooking_Details();
                     CParent_JFrame.getMainFrame().add(bd.getMainPanel());
                     CParent_JFrame.getMainFrame().getContentPane().revalidate();
                 }

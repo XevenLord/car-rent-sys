@@ -6,6 +6,7 @@ import org.cr.model.user.Customer;
 import org.cr.store.BookingStore;
 import org.cr.store.CarStore;
 import org.cr.store.CustomerStore;
+import org.cr.util.UserSession;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -23,7 +24,7 @@ import java.util.Date;
 
 public class CBooking_Details {
     private static DefaultTableModel tablemodel; // static so that it can be accessed in add GUI class to update the Jtable when a new record is added
-    private static JButton SearchCustomerID_Button, SearchCarRegNo_Button, BackButton, LogoutButton;
+    private static JButton SearchCustomerID_Button, SearchCarRegNo_Button, BackButton, LogoutButton, BookCar_Button, UnbookCar_Button;
     private static JTextField CustomerID_TextField, CarRegNo_TextField;
     private static JScrollPane jScrollPane1;
     private static JTable jTable1;
@@ -39,6 +40,8 @@ public class CBooking_Details {
         SearchCarRegNo_Button = new JButton("Search by Car RegNo");
         BackButton = new JButton("Back");
         LogoutButton = new JButton("Logout");
+        BookCar_Button = new JButton("Book");
+        UnbookCar_Button = new JButton("Unbook");
 
         CustomerID_TextField = new JTextField();
         CarRegNo_TextField = new JTextField();
@@ -101,8 +104,10 @@ public class CBooking_Details {
         jTable1.getTableHeader().setReorderingAllowed(false);
 
         MainPanel.add(jScrollPane1, new AbsoluteConstraints(10, 60, 1330, 550));
-        MainPanel.add(BackButton, new AbsoluteConstraints(1166, 625, 100, 22));
+        MainPanel.add(BackButton, new AbsoluteConstraints(1106, 625, 100, 22));
         MainPanel.add(LogoutButton, new AbsoluteConstraints(1236, 625, 100, 22));
+        MainPanel.add(BookCar_Button, new AbsoluteConstraints(10, 625, 130, 22));
+        MainPanel.add(UnbookCar_Button, new AbsoluteConstraints(160, 625, 130, 22));
         MainPanel.add(SearchCarRegNo_Button, new AbsoluteConstraints(10, 15, 160, 22));
         MainPanel.add(CarRegNo_TextField, new AbsoluteConstraints(185, 15, 240, 22));
         MainPanel.add(SearchCustomerID_Button, new AbsoluteConstraints(440, 15, 180, 22));
@@ -112,6 +117,8 @@ public class CBooking_Details {
         SearchCarRegNo_Button.addActionListener(new CBooking_Details_ActionListener());
         BackButton.addActionListener(new CBooking_Details_ActionListener());
         LogoutButton.addActionListener(new CBooking_Details_ActionListener());
+        BookCar_Button.addActionListener(new CBooking_Details_ActionListener());
+        UnbookCar_Button.addActionListener(new CBooking_Details_ActionListener());
     }
 
     public static DefaultTableModel getTablemodel() {
@@ -148,6 +155,29 @@ public class CBooking_Details {
                     JPanel panel = login.getMainPanel();
                     frame.add(panel);
                     frame.setVisible(true);
+                }
+                break;
+                case "Book": {
+                    Customer currentCustomer = UserSession.getInstance().getLoggedInCustomer();
+                    if (!carStore.getUnbookedCars().isEmpty()) {
+                        // Open a booking dialog with customer information
+                        CBooking_BookCar bookCarDialog = new CBooking_BookCar(currentCustomer);
+                        bookCarDialog.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No UnBooked Cars are available!");
+                    }
+                }
+                break;
+                case "Unbook": {
+                    Customer currentCustomer = UserSession.getInstance().getLoggedInCustomer();
+                    ArrayList<Booking> customerBookings = bookingStore.getByCustomerId(currentCustomer.getId());
+                    if (!customerBookings.isEmpty()) {
+                        // Open an unbooking dialog with customer information
+                        CBooking_UnBookCar unBookCarDialog = new CBooking_UnBookCar(currentCustomer);
+                        unBookCarDialog.setVisible(true);
+                    } else {
+                        JOptionPane.showMessageDialog(null, "No booked cars found for this customer!");
+                    }
                 }
                 break;
                 case "Search by Customer ID": {
