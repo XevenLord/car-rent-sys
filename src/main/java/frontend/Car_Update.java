@@ -239,7 +239,7 @@ public class Car_Update extends JFrame {
                                                         }
                                                     } else {
                                                         RegNo = null;
-                                                        RegNoValidity_Label.setText("                                                            Enter Reg No !");
+                                                        RegNoValidity_Label.setText("                                                            Enter Car Plate No !");
                                                     }
                                                     if (!RentPerHour.isEmpty()) {
                                                         try {

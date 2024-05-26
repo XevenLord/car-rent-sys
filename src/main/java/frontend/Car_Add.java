@@ -42,7 +42,7 @@ public class Car_Add extends JFrame {
         Name_Label = new JLabel("Name");
         Type_Label = new JLabel("Car type");
         SeatingCapacity_Label = new JLabel("Seating capacity");
-        RegNo_Label = new JLabel("Reg no (ABC-0123)");
+        RegNo_Label = new JLabel("Plate no (ABC-0123)");
         RentPerHour_Label = new JLabel("Rent Per Hour (in RM)");
 
         MakerValidity_Label = new JLabel();
@@ -150,7 +150,7 @@ public class Car_Add extends JFrame {
                                                  RegNoValidity_Label.setText("");
                                              } else {
                                                  regNo = null;
-                                                 RegNoValidity_Label.setText("                                                            Enter Reg No !");
+                                                 RegNoValidity_Label.setText("                                                            Enter Car Plate No !");
                                              }
                                              if (!rentPerHour.isEmpty()) {
                                                  try {

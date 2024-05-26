@@ -48,7 +48,7 @@ public class Customer_Car_Details {
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
 
-        String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats", "Reg No.", "Rent/hour", "Rent Status"};
+        String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats", "Plate No.", "Rent/hour", "Rent Status"};
         tablemodel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -125,7 +125,7 @@ public class Customer_Car_Details {
                 JOptionPane.showMessageDialog(null, "Required Car not found");
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Please Enter Car Reg no first !");
+            JOptionPane.showMessageDialog(null, "Please Enter Car Plate no first !");
         }
     }
 

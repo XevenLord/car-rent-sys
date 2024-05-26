@@ -59,7 +59,7 @@ public class Car_Details {
         jTable1 = new JTable();
 
         String[] columns = {"Sr#", "ID", "Maker", "Name", "Type", "Seats",
-                "Reg No.", "Rent/hour", "Rent Status"};
+                "Plate No.", "Rent/hour", "Rent Status"};
         tablemodel = new DefaultTableModel(columns, 0) {
 
             @Override
@@ -164,7 +164,7 @@ public class Car_Details {
                             JOptionPane.showMessageDialog(null, "Required Car not found");
                         }
                     } else {
-                        JOptionPane.showMessageDialog(null, "Please Enter Car Reg no first !");
+                        JOptionPane.showMessageDialog(null, "Please Enter Car Plate no first !");
                     }
                 }
                 break;
