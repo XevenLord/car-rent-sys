@@ -48,7 +48,7 @@ public class Customer_Details implements ActionListener {
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
 
-        String[] columns = {"ID", "NRIC", "Name", "Contact Number", "Car Rented", "Bill"};
+        String[] columns = {"ID", "NRIC", "Name", "Email", "Contact Number", "Car Rented", "Bill"};
         tablemodel = new DefaultTableModel(columns, 0) {
 
             @Override
@@ -73,6 +73,7 @@ public class Customer_Details implements ActionListener {
             String ID = Customer_objects.get(i).getId();
             String NRIC = Customer_objects.get(i).getIc();
             String Name = Customer_objects.get(i).getName();
+            String Email = Customer_objects.get(i).getEmail();
             String ContactNo = Customer_objects.get(i).getContactNo();
             long Bill = Customer_objects.get(i).getBill() != null ? Customer_objects.get(i).getBill() : 0L;
 
@@ -90,7 +91,7 @@ public class Customer_Details implements ActionListener {
             } else {
                 bookedCars = "No Cars Booked !";
             }
-            String[] one_s_Record = {"" + ID, NRIC, Name, ContactNo, bookedCars, Bill + ""};
+            String[] one_s_Record = {"" + ID, NRIC, Name, Email, ContactNo, bookedCars, Bill + ""};
             tablemodel.addRow(one_s_Record);
         }
 
@@ -103,14 +104,16 @@ public class Customer_Details implements ActionListener {
         jTable1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
+        jTable1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
 
         // adjusting size of each column
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(70);
         jTable1.getColumnModel().getColumn(1).setPreferredWidth(150);
         jTable1.getColumnModel().getColumn(2).setPreferredWidth(170);
-        jTable1.getColumnModel().getColumn(3).setPreferredWidth(110);
-        jTable1.getColumnModel().getColumn(4).setPreferredWidth(180);
-        jTable1.getColumnModel().getColumn(5).setPreferredWidth(140);
+        jTable1.getColumnModel().getColumn(3).setPreferredWidth(170);
+        jTable1.getColumnModel().getColumn(4).setPreferredWidth(110);
+        jTable1.getColumnModel().getColumn(5).setPreferredWidth(180);
+        jTable1.getColumnModel().getColumn(6).setPreferredWidth(140);
 
         jScrollPane1.setViewportView(jTable1);
         MainPanel.add(SearchID_Button, new AbsoluteConstraints(390, 10, 130, 22));

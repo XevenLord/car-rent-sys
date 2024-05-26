@@ -60,42 +60,30 @@ public class Car_Remove extends JFrame {
 
                                                 String carID = CarID_TextField.getText().trim();
                                                 if (!carID.isEmpty()) {
-                                                    try {
-                                                        if (Integer.parseInt(carID) > 0) {
-                                                            CarIDValidity_Label.setText("");
-//                            if (carID != null) {
-                                                            Car car = carStore.getCar(carID);
-                                                            if (car != null) {
-                                                                int showConfirmDialog = JOptionPane.showConfirmDialog(null, "You are about to remove this car \n "
-                                                                                + car.toString() + "\n Are you sure you want to continue ??", "Confirmation",
-                                                                        JOptionPane.OK_CANCEL_OPTION);
-                                                                if (showConfirmDialog == 0) {
-                                                                    carStore.removeCar(car.getPlateNo());
-                                                                    Parent_JFrame.getMainFrame().getContentPane().removeAll();
-                                                                    Car_Details cd = new Car_Details();
-                                                                    Parent_JFrame.getMainFrame().add(cd.getMainPanel());
-                                                                    Parent_JFrame.getMainFrame().getContentPane().revalidate();
+                                                        CarIDValidity_Label.setText("");
+                                                        Car car = carStore.getCar(carID);
+                                                        if (car != null) {
+                                                            int showConfirmDialog = JOptionPane.showConfirmDialog(null, "You are about to remove this car \n "
+                                                                            + car.toString() + "\n Are you sure you want to continue ??", "Confirmation",
+                                                                    JOptionPane.OK_CANCEL_OPTION);
+                                                            if (showConfirmDialog == 0) {
+                                                                carStore.removeCar(car.getPlateNo());
+                                                                Parent_JFrame.getMainFrame().getContentPane().removeAll();
+                                                                Car_Details cd = new Car_Details();
+                                                                Parent_JFrame.getMainFrame().add(cd.getMainPanel());
+                                                                Parent_JFrame.getMainFrame().getContentPane().revalidate();
 
-                                                                    Parent_JFrame.getMainFrame().setEnabled(true);
-                                                                    dispose();
-                                                                }
-                                                            } else {
-                                                                JOptionPane.showMessageDialog(null, "Car plate no not found !");
+                                                                Parent_JFrame.getMainFrame().setEnabled(true);
+                                                                dispose();
                                                             }
                                                         } else {
-                                                            carID = null;
-                                                            CarIDValidity_Label.setText("                                                            ID cannot be '0' or negative !");
+                                                            JOptionPane.showMessageDialog(null, "Car plate no not found !");
                                                         }
-                                                    } catch (NumberFormatException ex) {
-                                                        carID = null;
-                                                        CarIDValidity_Label.setText("                                                            Invalid ID !");
-                                                    }
+
                                                 } else {
                                                     carID = null;
                                                     CarIDValidity_Label.setText("                                                            Enter Car plate no !");
                                                 }
-                                                /*ID, Maker, Name, Colour, Type, SeatingCapacity, Model, Condition, RegNo, RentPerHour, IsRented RentDate, carCar, customer*/
-
                                             }
                                         }
         );
