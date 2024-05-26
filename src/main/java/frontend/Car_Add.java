@@ -43,7 +43,7 @@ public class Car_Add extends JFrame {
         Type_Label = new JLabel("Car type");
         SeatingCapacity_Label = new JLabel("Seating capacity");
         RegNo_Label = new JLabel("Reg no (ABC-0123)");
-        RentPerHour_Label = new JLabel("Rent Per Hour (in PKR)");
+        RentPerHour_Label = new JLabel("Rent Per Hour (in RM)");
 
         MakerValidity_Label = new JLabel();
         NameValidity_Label = new JLabel();

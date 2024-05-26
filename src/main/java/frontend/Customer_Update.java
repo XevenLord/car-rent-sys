@@ -86,8 +86,8 @@ public class Customer_Update {
     public class UpdateCustomer_Inner extends JFrame {
 
         JButton Update_Button, Cancel_Button;
-        JLabel CNIC_Label, Name_Label, Contact_Label, Email_Label, UserName_Label, Password_Label, CNICValidity_Label, contactValidity_Label, NameValidity_Label, EmailValidity_Label, UserNameValidity_Label, PasswordValidity_Label;
-        JTextField CNIC_TextField, Name_TextField, Contact_TextField, Email_TextField, UserName_TextField, Password_TextField;
+        JLabel NRIC_Label, Name_Label, Contact_Label, Email_Label, UserName_Label, Password_Label, NRICValidity_Label, contactValidity_Label, NameValidity_Label, EmailValidity_Label, UserNameValidity_Label, PasswordValidity_Label;
+        JTextField NRIC_TextField, Name_TextField, Contact_TextField, Email_TextField, UserName_TextField, Password_TextField;
 
         public UpdateCustomer_Inner() {
             super("Update Customer");
@@ -100,34 +100,34 @@ public class Customer_Update {
             Update_Button = new JButton("Update");
             Cancel_Button = new JButton("Cancel");
 
-            CNIC_Label = new JLabel("Enter CNIC (without dashes)");
+            NRIC_Label = new JLabel("Enter NRIC (without dashes)");
             Name_Label = new JLabel("Enter Name");
             Contact_Label = new JLabel("Enter Contact");
-            CNICValidity_Label = new JLabel();
+            NRICValidity_Label = new JLabel();
             NameValidity_Label = new JLabel();
             contactValidity_Label = new JLabel();
-            CNIC_TextField = new JTextField(customer.getIc());
+            NRIC_TextField = new JTextField(customer.getIc());
             Name_TextField = new JTextField(customer.getName());
             Contact_TextField = new JTextField(customer.getContactNo());
 
-            CNIC_TextField.setPreferredSize(new Dimension(240, 22));
+            NRIC_TextField.setPreferredSize(new Dimension(240, 22));
             Name_TextField.setPreferredSize(new Dimension(240, 22));
             Contact_TextField.setPreferredSize(new Dimension(240, 22));
 
-            CNIC_Label.setPreferredSize(new Dimension(175, 22));
+            NRIC_Label.setPreferredSize(new Dimension(175, 22));
             Name_Label.setPreferredSize(new Dimension(175, 22));
             Contact_Label.setPreferredSize(new Dimension(175, 22));
-            CNICValidity_Label.setPreferredSize(new Dimension(240, 9));
+            NRICValidity_Label.setPreferredSize(new Dimension(240, 9));
             contactValidity_Label.setPreferredSize(new Dimension(240, 9));
             NameValidity_Label.setPreferredSize(new Dimension(240, 9));
 
-            CNICValidity_Label.setForeground(Color.red);
+            NRICValidity_Label.setForeground(Color.red);
             contactValidity_Label.setForeground(Color.red);
             NameValidity_Label.setForeground(Color.red);
 
-            add(CNIC_Label, new AbsoluteConstraints(10, 5));
-            add(CNIC_TextField, new AbsoluteConstraints(195, 5));
-            add(CNICValidity_Label, new AbsoluteConstraints(195, 30));
+            add(NRIC_Label, new AbsoluteConstraints(10, 5));
+            add(NRIC_TextField, new AbsoluteConstraints(195, 5));
+            add(NRICValidity_Label, new AbsoluteConstraints(195, 30));
             add(Name_Label, new AbsoluteConstraints(10, 42));
             add(Name_TextField, new AbsoluteConstraints(195, 42));
             add(NameValidity_Label, new AbsoluteConstraints(195, 66));
@@ -142,25 +142,25 @@ public class Customer_Update {
                 public void actionPerformed(ActionEvent e) {
                     CustomerStore customerStore = new CustomerStore().get();
 
-                    String cnic = CNIC_TextField.getText().trim();
+                    String nric = NRIC_TextField.getText().trim();
                     String name = Name_TextField.getText().trim();
                     String contact = Contact_TextField.getText().trim();
-                    if (!cnic.isEmpty()) {
-                        System.out.println("cnic is not empty");
-                        Customer CO = customerStore.getCustomerByIC(cnic);
+                    if (!nric.isEmpty()) {
+                        System.out.println("nric is not empty");
+                        Customer CO = customerStore.getCustomerByIC(nric);
                         if (CO != null) {
-                            if (cnic.equals(customer.getIc())) {
-                                System.out.println("no change in cnic");
+                            if (nric.equals(customer.getIc())) {
+                                System.out.println("no change in nric");
                             } else {
-                                cnic = null;
-                                JOptionPane.showMessageDialog(null, "This CNIC is already registered !");
+                                nric = null;
+                                JOptionPane.showMessageDialog(null, "This NRIC is already registered !");
                             }
-                        } else { // when Customer.SearchCNIC(M) returned null
-                            System.out.println("new CNIC is entered");
+                        } else {
+                            System.out.println("new NRIC is entered");
                         }
                     } else {
-                        cnic = null;
-                        CNICValidity_Label.setText("Enter CNIC !");
+                        nric = null;
+                        NRICValidity_Label.setText("Enter NRIC !");
                     }
                     if (name.isEmpty()) {
                         name = null;
@@ -170,12 +170,12 @@ public class Customer_Update {
                         contact = null;
                         contactValidity_Label.setText("Enter Contact Number !");
                     }
-                    System.out.println("the value of cnic before null condition is " + cnic);
-                    if (cnic != null && name != null && contact != null) {
+                    System.out.println("the value of nric before null condition is " + nric);
+                    if (nric != null && name != null && contact != null) {
                         customer = new Customer().builder()
                                 .bill(customer.getBill())
                                 .id(customer.getId())
-                                .ic(cnic)
+                                .ic(nric)
                                 .name(name)
                                 .contactNo(contact)
                                 .build();

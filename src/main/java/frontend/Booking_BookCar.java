@@ -43,7 +43,7 @@ public class Booking_BookCar extends JFrame {
         Book_Button = new JButton("Book");
         Cancel_Button = new JButton("Cancel");
 
-        CarID_Label = new JLabel("Enter Car ID to be Booked");
+        CarID_Label = new JLabel("Enter Car plate no to be Booked");
         CarIDValidity_Label = new JLabel();
         CarID_TextField = new JTextField();
 
@@ -95,11 +95,11 @@ public class Booking_BookCar extends JFrame {
                                                       }
                                                   } else {
                                                       CarID = null;
-                                                      CarIDValidity_Label.setText("                                                            Car ID does not exists !");
+                                                      CarIDValidity_Label.setText("                                                            Car plate no does not exists !");
                                                   }
                                               } else {
                                                   CarID = null;
-                                                  CarIDValidity_Label.setText("                                                            Enter Car ID !");
+                                                  CarIDValidity_Label.setText("                                                            Enter Car plate no !");
                                               }
 
                                               String customerID = CustomerID_TextField.getText().trim();

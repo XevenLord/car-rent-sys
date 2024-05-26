@@ -53,7 +53,7 @@ public class Parent_JFrame {
 
         addCustomer = new JMenuItem("Add Customer");
         updateCustomer = new JMenuItem("Update Customer");
-        removeCustomer = new JMenuItem("Remove  Customer");
+        removeCustomer = new JMenuItem("Remove Customer");
 
         About = new JMenuItem("About");
 

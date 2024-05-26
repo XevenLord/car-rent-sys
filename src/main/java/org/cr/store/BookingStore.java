@@ -95,4 +95,14 @@ public class BookingStore implements BaseStore {
                 .collect(Collectors.toList());
     }
 
+    public Booking getByPlateNoWthtReturn(String plateNo) {
+        ArrayList<Booking> bookings = getByPlateNo(plateNo);
+        for (Booking booking : bookings) {
+            if (booking.getEndTm() == null) {
+                return booking;
+            }
+        }
+        return null; // or throw an exception if preferred
+    }
+
 }

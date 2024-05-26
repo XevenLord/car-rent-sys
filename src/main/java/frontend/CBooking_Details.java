@@ -29,6 +29,7 @@ public class CBooking_Details {
     private static JScrollPane jScrollPane1;
     private static JTable jTable1;
     private JPanel MainPanel;
+    Customer currentCustomer = UserSession.getInstance().getLoggedInCustomer();
 
     public CBooking_Details() {
         MainPanel = new JPanel();
@@ -49,7 +50,7 @@ public class CBooking_Details {
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
 
-        String[] columns = {"Sr#", "ID", "Customer ID+Name", "Car Name", "Rent Time", "Return Time"};
+        String[] columns = {"Sr#", "ID", "Customer ID+Name", "Car Plate No", "Rent Time", "Return Time"};
         tablemodel = new DefaultTableModel(columns, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -64,7 +65,7 @@ public class CBooking_Details {
         jTable1.setFillsViewportHeight(true);
 
         BookingStore bookingStore = new BookingStore().get();
-        ArrayList<Booking> bookingObjects = bookingStore.getAll();
+        ArrayList<Booking> bookingObjects = bookingStore.getByCustomerId(currentCustomer.getId());
         for (int i = 0; i < bookingObjects.size(); i++) {
             String ID = bookingObjects.get(i).getId();
             String customerIDName = bookingObjects.get(i).getCustomerId() + ": " + bookingObjects.get(i).getCustomerNm();
@@ -136,6 +137,7 @@ public class CBooking_Details {
             BookingStore bookingStore = new BookingStore().get();
             CustomerStore customerStore = new CustomerStore().get();
             CarStore carStore = new CarStore().get();
+//            Customer currentCustomer = UserSession.getInstance().getLoggedInCustomer();
 
             switch (e.getActionCommand()) {
 
@@ -158,7 +160,6 @@ public class CBooking_Details {
                 }
                 break;
                 case "Book": {
-                    Customer currentCustomer = UserSession.getInstance().getLoggedInCustomer();
                     if (!carStore.getUnbookedCars().isEmpty()) {
                         // Open a booking dialog with customer information
                         CBooking_BookCar bookCarDialog = new CBooking_BookCar(currentCustomer);
@@ -169,7 +170,6 @@ public class CBooking_Details {
                 }
                 break;
                 case "Unbook": {
-                    Customer currentCustomer = UserSession.getInstance().getLoggedInCustomer();
                     ArrayList<Booking> customerBookings = bookingStore.getByCustomerId(currentCustomer.getId());
                     if (!customerBookings.isEmpty()) {
                         // Open an unbooking dialog with customer information

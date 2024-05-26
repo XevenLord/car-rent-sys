@@ -1,9 +1,11 @@
 package frontend;
 
 import org.cr.model.Booking;
+import org.cr.model.Payment;
 import org.cr.model.user.Customer;
 import org.cr.store.BookingStore;
 import org.cr.store.CustomerStore;
+import org.cr.store.PaymentStore;
 import org.netbeans.lib.awtextra.AbsoluteConstraints;
 import org.netbeans.lib.awtextra.AbsoluteLayout;
 
@@ -13,7 +15,9 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.UUID;
 
 public class Customer_Details implements ActionListener {
 
@@ -44,7 +48,7 @@ public class Customer_Details implements ActionListener {
         jScrollPane1 = new JScrollPane();
         jTable1 = new JTable();
 
-        String[] columns = {"Sr#", "ID", "CNIC", "Name", "Contact Number", "Car Rented", "Bill"};
+        String[] columns = {"ID", "NRIC", "Name", "Contact Number", "Car Rented", "Bill"};
         tablemodel = new DefaultTableModel(columns, 0) {
 
             @Override
@@ -67,10 +71,10 @@ public class Customer_Details implements ActionListener {
         for (int i = 0; i < Customer_objects.size(); i++) {
 
             String ID = Customer_objects.get(i).getId();
-            String CNIC = Customer_objects.get(i).getIc();
+            String NRIC = Customer_objects.get(i).getIc();
             String Name = Customer_objects.get(i).getName();
             String ContactNo = Customer_objects.get(i).getContactNo();
-            long Bill = Customer_objects.get(i).getBill();
+            long Bill = Customer_objects.get(i).getBill() != null ? Customer_objects.get(i).getBill() : 0L;
 
             // getting booked cars for customer
             ArrayList<Booking> bookings = bookingStore.getByCustomerId(ID);
@@ -78,7 +82,7 @@ public class Customer_Details implements ActionListener {
             if (!bookings.isEmpty()) {
                 for (int j = 0; j < bookings.size(); j++) {
                     if (bookings.get(j).getEndTm() == null) {
-                        bookedCars += bookings.get(j).getPlateNo() + ": " + bookings.get(j).getPlateNo() + "\n";
+                        bookedCars += bookings.get(j).getPlateNo() + "\n";
                     } else {
                         bookedCars = "No Cars Booked !";
                     }
@@ -86,7 +90,7 @@ public class Customer_Details implements ActionListener {
             } else {
                 bookedCars = "No Cars Booked !";
             }
-            String[] one_s_Record = {(i + 1) + "", "" + ID, CNIC, Name, ContactNo, bookedCars, Bill + ""};
+            String[] one_s_Record = {"" + ID, NRIC, Name, ContactNo, bookedCars, Bill + ""};
             tablemodel.addRow(one_s_Record);
         }
 
@@ -99,10 +103,6 @@ public class Customer_Details implements ActionListener {
         jTable1.getColumnModel().getColumn(3).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(4).setCellRenderer(centerRenderer);
         jTable1.getColumnModel().getColumn(5).setCellRenderer(centerRenderer);
-        jTable1.getColumnModel().getColumn(6).setCellRenderer(centerRenderer);
-//        jTable1.getColumnModel().getColumn(7).setCellRenderer(centerRenderer);
-//        jTable1.getColumnModel().getColumn(8).setCellRenderer(centerRenderer);
-//        jTable1.getColumnModel().getColumn(9).setCellRenderer(centerRenderer);
 
         // adjusting size of each column
         jTable1.getColumnModel().getColumn(0).setPreferredWidth(70);
@@ -111,12 +111,8 @@ public class Customer_Details implements ActionListener {
         jTable1.getColumnModel().getColumn(3).setPreferredWidth(110);
         jTable1.getColumnModel().getColumn(4).setPreferredWidth(180);
         jTable1.getColumnModel().getColumn(5).setPreferredWidth(140);
-        jTable1.getColumnModel().getColumn(6).setPreferredWidth(100);
-//        jTable1.getColumnModel().getColumn(7).setPreferredWidth(130);
-//        jTable1.getColumnModel().getColumn(8).setPreferredWidth(110);
-//        jTable1.getColumnModel().getColumn(9).setPreferredWidth(110);
 
-//        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(jTable1);
         MainPanel.add(SearchID_Button, new AbsoluteConstraints(390, 10, 130, 22));
         MainPanel.add(SearchID_TextField, new AbsoluteConstraints(525, 10, 240, 22));
         MainPanel.add(SearchName_Button, new AbsoluteConstraints(10, 10, 130, 22));
@@ -139,10 +135,6 @@ public class Customer_Details implements ActionListener {
         ClearBill_Button.addActionListener(this);
     }
 
-    //    public static void main(String args[]) {
-//        new Customer_Details().setVisible(true);
-//
-//    }
     public JPanel getMainPanel() {
         return MainPanel;
     }
@@ -150,6 +142,8 @@ public class Customer_Details implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         CustomerStore customerStore = new CustomerStore().get();
+        PaymentStore paymentStore = new PaymentStore().get();
+        BookingStore bookingStore = new BookingStore().get();
 
         switch (e.getActionCommand()) {
             case "Search ID": {
@@ -227,7 +221,7 @@ public class Customer_Details implements ActionListener {
                 if (!View.isEmpty()) {
                     ArrayList<String> IDsArray = new ArrayList<>(0);
                     for (int i = 0; i < View.size(); i++) { // getting IDs of all the Customers with Bill > 0
-                        if (View.get(i).getBill() != 0) {
+                        if (View.get(i).getBill() != null && View.get(i).getBill() != 0) {
                             IDsArray.add(View.get(i).getId() + "");
                         }
                     }
@@ -242,7 +236,20 @@ public class Customer_Details implements ActionListener {
                                         + customer + "\nAre you sure you want to continue ?", "Clear Bill Confirmation",
                                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null);
                         if (showConfirmDialog == 0) {
+                            Long bill = customer.getBill();
                             customer.setBill(0L);
+
+                            // fetch all bookings the customer has
+                            // calculate bill based on return time and start time
+                            ArrayList<Booking> booking = bookingStore.getByCustomerId(customer.getId());
+
+                            // create payment and save to store
+                            Payment payment = new Payment().builder()
+                                            .id(UUID.randomUUID().toString())
+                                            .customer(customer)
+                                            .crtTm(LocalDateTime.now())
+                                            .build();
+
                             customerStore.updCustomer(customer);
                             Parent_JFrame.getMainFrame().getContentPane().removeAll();
                             Customer_Details cd = new Customer_Details();

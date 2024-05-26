@@ -45,7 +45,7 @@ public class Booking_UnBookCar extends JFrame {
         UnBook_Button = new JButton("UnBook");
         Cancel_Button = new JButton("Cancel");
 
-        CarID_Label = new JLabel("Enter Car ID to be UnBooked");
+        CarID_Label = new JLabel("Enter Car plate no to be UnBooked");
         CarIDValidity_Label = new JLabel();
         CarID_TextField = new JTextField();
 
@@ -85,12 +85,12 @@ public class Booking_UnBookCar extends JFrame {
                                                         }
                                                     } else {
                                                         car = null;
-                                                        JOptionPane.showMessageDialog(null, "Car ID does not exists !");
+                                                        JOptionPane.showMessageDialog(null, "Car plate no does not exists !");
                                                     }
                                                 } else {
                                                     carID = null;
                                                     CarIDValidity_Label.setText("                                                            "
-                                                            + "Enter Car ID !");
+                                                            + "Enter Car plate no !");
                                                 }
 
                                                 if (carID != null && car != null) {
@@ -99,10 +99,13 @@ public class Booking_UnBookCar extends JFrame {
                                                             + "\n Are you sure you want to continue ??", "UnBook Confirmation", OK_CANCEL_OPTION);
                                                     if (showConfirmDialog == 0) {
 
-                                                        ArrayList<Booking> booking = bookingStore.getByPlateNo(carID);
-                                                        Booking last = booking.get((booking.size() - 1));
+                                                        Booking last = bookingStore.getByPlateNoWthtReturn(carID);
                                                         last.setEndTm(LocalDateTime.now());
                                                         bookingStore.updBooking(last);
+
+                                                        // update car status
+                                                        car.setRentSts(CarRentSts.AVAILABLE.toString());
+                                                        carStore.updCar(car);
 
                                                         int bill = paymentStore.calcBill(last);
 

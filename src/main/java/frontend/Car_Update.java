@@ -36,7 +36,7 @@ public class Car_Update extends JFrame {
         Update_Button = new JButton("Update");
         Cancel_Button = new JButton("Cancel");
 
-        CarID_Label = new JLabel("Enter Car ID to be updated");
+        CarID_Label = new JLabel("Enter Car plate no to be updated");
         CarIDValidity_Label = new JLabel();
         CarID_TextField = new JTextField();
 
@@ -63,20 +63,10 @@ public class Car_Update extends JFrame {
                                                 String carID = CarID_TextField.getText().trim();
 
                                                 if (!carID.isEmpty()) {
-                                                    try {
-                                                        if (Integer.parseInt(carID) > 0) {
-                                                            CarIDValidity_Label.setText("");
-                                                        } else {
-                                                            carID = null;
-                                                            CarIDValidity_Label.setText("                                                            ID cannot be '0' or negative !");
-                                                        }
-                                                    } catch (NumberFormatException ex) {
-                                                        carID = null;
-                                                        CarIDValidity_Label.setText("                                                            Invalid ID !");
-                                                    }
+                                                    CarIDValidity_Label.setText("");
                                                 } else {
                                                     carID = null;
-                                                    CarIDValidity_Label.setText("                                                            Enter Car ID !");
+                                                    CarIDValidity_Label.setText("                                                            Enter Car plate no !");
                                                 }
 
                                                 if (carID != null) {
@@ -87,10 +77,10 @@ public class Car_Update extends JFrame {
                                                         dispose();
 
                                                     } else {
-                                                        JOptionPane.showMessageDialog(null, "Car ID not found !");
+                                                        JOptionPane.showMessageDialog(null, "Car plate no not found !");
                                                     }
                                                 } else {
-                                                    CarIDValidity_Label.setText("                                                            Enter Car ID !");
+                                                    CarIDValidity_Label.setText("                                                            Enter Car plate no !");
                                                 }
                                             }
                                         }
@@ -107,11 +97,10 @@ public class Car_Update extends JFrame {
     private class Car_UpdateInner extends JFrame {
 
         JButton Update_Button, Cancel_Button;
-        JLabel Maker_Label, Name_Label, Color_Label, Type_Label, SeatingCapacity_Label, Model_Label, Condition_Label, RegNo_Label, RentPerHour_Label,
-                OwnerID_Label,
-                MakerValidity_Label, NameValidity_Label, RegNoValidity_Label, RentPerHourValidity_Label, OwnerIDValidity_Label;
-        JTextField Maker_TextField, Name_TextField, RegNo_TextField, RentPerHour_TextField, OwnerID_TextField;
-        JComboBox<String> Colour_ComboBox, Type_ComboBox, Model_ComboBox, Condition_ComboBox;
+        JLabel Maker_Label, Name_Label, Color_Label, Type_Label, SeatingCapacity_Label, Model_Label, RegNo_Label, RentPerHour_Label, RentSts_Label,
+                MakerValidity_Label, NameValidity_Label, RegNoValidity_Label, RentPerHourValidity_Label;
+        JTextField Maker_TextField, Name_TextField, RegNo_TextField, RentPerHour_TextField;
+        JComboBox<String> Type_ComboBox, RentSts_ComboBox;
         JSpinner SeatingCapacity_Spinner;
 
         public Car_UpdateInner() {
@@ -132,38 +121,25 @@ public class Car_Update extends JFrame {
             Model_Label = new JLabel("Enter Model");
             Type_Label = new JLabel("Enter Car type");
             SeatingCapacity_Label = new JLabel("Enter Seating capacity");
-            RegNo_Label = new JLabel("Enter Reg no (ABC-0123)");
-            OwnerID_Label = new JLabel("Enter Owner ID");
-            RentPerHour_Label = new JLabel("Enter Rent Per Hour (in PKR)");
-            Condition_Label = new JLabel("Condition");
+            RegNo_Label = new JLabel("Enter Car plate no (ABC-0123)");
+            RentPerHour_Label = new JLabel("Enter Rent Per Hour (in RM)");
+            RentSts_Label = new JLabel("Select Rent Status");
 
             MakerValidity_Label = new JLabel();
             NameValidity_Label = new JLabel();
             RegNoValidity_Label = new JLabel();
-            OwnerIDValidity_Label = new JLabel();
             RentPerHourValidity_Label = new JLabel();
 
             Maker_TextField = new JTextField();
             Name_TextField = new JTextField();
             RegNo_TextField = new JTextField();
-            OwnerID_TextField = new JTextField();
             RentPerHour_TextField = new JTextField();
 
-            String[] Colours = {"White", "Red", "Silver", "Blue", "Black"};
-            // try to initialize array from text file so that new items can be added and can be updated
-            Colour_ComboBox = new JComboBox<>(Colours);
             String[] Types = {"Familycar", "Comercial", "Microcar", "Compact car", "Mid-size car", "Supercar", "Convertible", "Sports cars"};
             Type_ComboBox = new JComboBox<>(Types);
 
-            // Creating an array containing Years from Today's Year till 1950
-            int TodaysYear = new Date().getYear() + 1900;
-            int noOfYears = TodaysYear - 1949;
-            String[] Years = new String[noOfYears];
-            for (int i = 0; i < noOfYears; i++) {
-                Years[i] = TodaysYear - i + "";
-            }
-            Model_ComboBox = new JComboBox<>(Years);
-
+            String[] RentStatuses = {"Available", "Non-available"};
+            RentSts_ComboBox = new JComboBox<>(RentStatuses);
 
             SeatingCapacity_Spinner = new JSpinner();
             SeatingCapacity_Spinner.setModel(new javax.swing.SpinnerNumberModel(4, 1, null, 1));
@@ -178,6 +154,7 @@ public class Car_Update extends JFrame {
             Name_Label.setPreferredSize(new Dimension(175, 22));
             RegNo_Label.setPreferredSize(new Dimension(175, 22));
             RentPerHour_Label.setPreferredSize(new Dimension(175, 22));
+            RentSts_Label.setPreferredSize(new Dimension(175, 22));
 
             MakerValidity_Label.setPreferredSize(new Dimension(415, 9));
             NameValidity_Label.setPreferredSize(new Dimension(415, 9));
@@ -199,6 +176,7 @@ public class Car_Update extends JFrame {
             RentPerHour_TextField.setText(car.getRentPerHour() + "");
             Type_ComboBox.setSelectedItem(car.getType());
             SeatingCapacity_Spinner.setValue(car.getSeats());
+            RentSts_ComboBox.setSelectedItem(car.getRentSts().equals("1") ? "Available" : "Non-available");
 
 //            car
             add(Maker_Label);
@@ -222,6 +200,9 @@ public class Car_Update extends JFrame {
             add(SeatingCapacity_Label);
             add(SeatingCapacity_Spinner);
 
+            add(RentSts_Label);
+            add(RentSts_ComboBox);
+
             add(Update_Button);
             add(Cancel_Button);
 
@@ -233,8 +214,8 @@ public class Car_Update extends JFrame {
                                                     String Maker = Maker_TextField.getText().trim(),
                                                             Name = Name_TextField.getText().trim(),
                                                             RegNo = RegNo_TextField.getText().trim(),
-                                                            OwnerID = OwnerID_TextField.getText().trim(),
                                                             RentPerHour = RentPerHour_TextField.getText().trim();
+                                                    String RentStatus = RentSts_ComboBox.getSelectedItem().toString().equals("Available") ? "1" : "0";
 
                                                     if (!Name.isEmpty()) {
                                                         NameValidity_Label.setText("");
@@ -277,10 +258,10 @@ public class Car_Update extends JFrame {
                                                         RentPerHourValidity_Label.setText("                                                            Enter Rent !");
                                                     }
                                                     try {
-                                                        if (Maker != null && Name != null && RegNo != null && OwnerID != null && RentPerHour != null) {
+                                                        if (Maker != null && Name != null && RegNo != null && RentPerHour != null) {
 //new Car(ID, Maker, Name, Colour, Type, seatingCapacity, model, Condition, RegNo, RentPerHour, carOwner)
                                                             car = new Car(car.getPlateNo(), Maker, Name,
-                                                                    Type_ComboBox.getSelectedItem() + "", CarRentSts.NON_AVAILABLE.toString(), Integer.parseInt(SeatingCapacity_Spinner.getValue() + "")
+                                                                    Type_ComboBox.getSelectedItem() + "", RentStatus, Integer.parseInt(SeatingCapacity_Spinner.getValue() + "")
                                                                     , (long) Integer.parseInt(RentPerHour));
                                                             carStore.updCar(car);
 

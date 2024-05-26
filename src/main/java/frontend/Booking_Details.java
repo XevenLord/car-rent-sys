@@ -82,7 +82,7 @@ public class Booking_Details {
             LocalDateTime returnTime_ = Booking_objects.get(i).getEndTm();
             String returnTime;
             if (returnTime_ != null) {
-                Date returntime = new Date(String.valueOf(returnTime_));
+                Date returntime = Date.from(returnTime_.atZone(ZoneId.systemDefault()).toInstant());
                 returnTime = dateFormat.format(returntime);
             } else {
                 returnTime = "Not returned yet !";

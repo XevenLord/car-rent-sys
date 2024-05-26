@@ -34,7 +34,7 @@ public class Car_Remove extends JFrame {
         Remove_Button = new JButton("Remove");
         Cancel_Button = new JButton("Cancel");
 
-        CarID_Label = new JLabel("Enter Car ID to be removed");
+        CarID_Label = new JLabel("Enter Car plate no to be removed");
         CarIDValidity_Label = new JLabel();
         CarID_TextField = new JTextField();
 
@@ -80,7 +80,7 @@ public class Car_Remove extends JFrame {
                                                                     dispose();
                                                                 }
                                                             } else {
-                                                                JOptionPane.showMessageDialog(null, "Car ID not found !");
+                                                                JOptionPane.showMessageDialog(null, "Car plate no not found !");
                                                             }
                                                         } else {
                                                             carID = null;
@@ -92,7 +92,7 @@ public class Car_Remove extends JFrame {
                                                     }
                                                 } else {
                                                     carID = null;
-                                                    CarIDValidity_Label.setText("                                                            Enter Car ID !");
+                                                    CarIDValidity_Label.setText("                                                            Enter Car plate no !");
                                                 }
                                                 /*ID, Maker, Name, Colour, Type, SeatingCapacity, Model, Condition, RegNo, RentPerHour, IsRented RentDate, carCar, customer*/
 
